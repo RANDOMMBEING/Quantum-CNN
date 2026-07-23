@@ -317,43 +317,6 @@ It reached:
 Results can vary when the seed, subset, circuit or hyperparameters change. The
 epoch-by-epoch values from this exact run are in `results/training_log.csv`.
 
-## Suggested reading order
-
-If this is your first quantum ML project, I recommend reading the files in
-this order:
-
-1. **`data.py`** — understand how one image becomes four numbers.
-2. **`quantum_layer.py`** — follow encoding, trainable gates, CNOTs, pooling
-   and measurement from top to bottom.
-3. **`model.py`** — see how the quantum layer connects to one classical layer.
-4. **`train.py`** — compare the loop with a normal PyTorch training loop.
-5. **`tests/`** — see the small checks that confirm the pieces work.
-
-The Hinglish comments inside the code explain the less obvious lines without
-trying to explain every basic Python statement.
-
-## Honest limitations
-
-- `default.qubit` is a classical CPU simulator, not real quantum hardware.
-- Compressing 784 pixels into four averages throws away a lot of digit-shape
-  information.
-- The model only handles digits `0` and `1`.
-- The circuit is deliberately tiny and has only one convolution block.
-- A normal CNN will usually be faster and more accurate on MNIST.
-- This experiment demonstrates quantum integration, not quantum advantage.
-- Input validation is intentionally minimal because this is a small demo;
-  documented command values should be used.
-
-## Ideas to try next
-
-- select an equal number of zeros and ones;
-- train on all available binary MNIST images with `--train-size 0`;
-- compare learning rates such as `0.05`, `0.10` and `0.30`;
-- add a second quantum-convolution block;
-- measure more than one qubit before the classical layer;
-- compare the result with a tiny classical neural-network baseline;
-- replace MNIST with Fashion-MNIST while keeping the same project structure.
-
 ## Final note
 
 The main success of this project is not beating a classical CNN. It is showing,
