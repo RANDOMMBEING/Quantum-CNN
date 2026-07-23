@@ -95,7 +95,7 @@ flowchart LR
 
 Here is the same flow in plain language:
 
-1. TorchVision downloads the MNIST train and test splits.
+1. TorchVision loads the included MNIST train and test splits.
 2. Only images labelled `0` or `1` are kept.
 3. Each image is divided into top-left, top-right, bottom-left and bottom-right
    quadrants.
@@ -150,7 +150,7 @@ project/
 │   ├── test_cli.py         Checks command-line settings
 │   ├── test_data.py        Checks preprocessing and label filtering
 │   └── test_model.py       Checks model output and quantum gradients
-├── data/                   Downloaded MNIST files
+├── data/                   Included raw MNIST train and test files
 └── results/
     ├── training_log.csv    Loss and accuracy for every epoch
     └── qcnn_model.pt       Saved trained weights
@@ -193,7 +193,7 @@ python -m pip install -r requirements.txt
 The main packages are:
 
 - **PyTorch** for the model, optimizer and training loop;
-- **TorchVision** for downloading MNIST;
+- **TorchVision** for loading MNIST and downloading it again if needed;
 - **PennyLane** for the quantum circuit and PyTorch integration;
 - **pytest** for the automated checks.
 
@@ -205,14 +205,19 @@ This command uses 2,000 unique binary MNIST training images, ten epochs and a
 learning rate of `0.10`:
 
 ```bash
-python train_qcnn.py --train-size 2000 --epochs 10 --learning-rate 0.10
+python train_qcnn.py --train-size 2000 --epochs 10 --learning-rate 0.10 --no-download
 ```
 
-MNIST is downloaded automatically into `data/` during the first run. Later,
-you can prevent another download check with:
+The repository already contains the raw MNIST train and test files in `data/`,
+so `--no-download` runs without making a network request. The included dataset
+contains all MNIST digits; `data.py` keeps only digits `0` and `1` when the
+program starts.
+
+If the `data/` folder is removed, leave out `--no-download` and TorchVision will
+download MNIST again:
 
 ```bash
-python train_qcnn.py --train-size 2000 --epochs 10 --learning-rate 0.10 --no-download
+python train_qcnn.py --train-size 2000 --epochs 10 --learning-rate 0.10
 ```
 
 The terminal explains what is happening:
